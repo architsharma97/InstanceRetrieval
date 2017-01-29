@@ -9,4 +9,3 @@ elapsed_time = time.time() - st
 label = ward.labels_
 print "Elapsed time: %.2fs" %(elapsed_time)
 print "Number of points: %i" %(label.size)
-

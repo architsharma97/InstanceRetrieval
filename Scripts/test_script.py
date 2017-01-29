@@ -25,8 +25,15 @@ for i,r in enumerate(regions[:100]):
 	cropped_images[i,:,:,:]=process_image(crop_img)
 features=model.predict(cropped_images)
 print features.shape
-t4=time.time()
 
+t4=time.time()
+pca=PCA(n_components=500)
+visual_words_reduced=pca.fit_transform(visual_words)
+
+
+np.save('test',visual_words_reduced)
+t5=time.time()
 print "Time taken to load VGG16: " + str(t2-t1)
 print "Time taken for getting regions from Selective Search: " + str(t3-t2)
 print "Time taken to get VGG16 features for 100 regions: " + str(t4-t3)
+print "PCA: %.2fs" %(t5-t4)

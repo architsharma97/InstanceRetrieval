@@ -16,12 +16,12 @@ def vgg16():
 	model=Model(input=base_model.input, output=base_model.get_layer('fc2').output)
 	return model
 
-def process_image(img_path):
+def process_image(img):
 	'''
-	img_path: path to the actual image
+	img: A numpy array for the image. Make sure the image is 224x224
 	'''
 	print "Pre-processing image"
-	img = image.load_img(img_path, target_size=(224, 224))
+
 	x = image.img_to_array(img)
 	x = np.expand_dims(x, axis=0)
 	x = preprocess_input(x)

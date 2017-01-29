@@ -8,7 +8,7 @@ import time
 # Argument 1: takes in the list of training images from the dataset
 # Argument 2: scale paramenter for selective search
 
-DIR='../Dataset/'
+DIR='../Dataset/train/'
 scale=int(sys.argv[2])
 
 def main():

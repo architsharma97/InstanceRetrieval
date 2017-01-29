@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from selectivesearch import *
 from utils import *
+from sklearn.decomposition import PCA
 
 # Argument 1: takes in the list of training images from the dataset
 # Argument 2: scale paramenter for selective search
@@ -46,6 +47,9 @@ def main():
 	
 	print "Shape of the visual words matrix: ", 
 	print visual_words.shape
+	
 	print "Computed all the features: Dimensionality Reduction"
+	pca=PCA(n_components=500)
+	pca.fit(visual_words)
 if __name__ == '__main__':
 	main()

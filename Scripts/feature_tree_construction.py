@@ -4,7 +4,7 @@ import numpy as np
 from selectivesearch import *
 from utils import *
 from sklearn.decomposition import PCA
-
+import time
 # Argument 1: takes in the list of training images from the dataset
 # Argument 2: scale paramenter for selective search
 
@@ -18,10 +18,11 @@ def main():
 	# for every image, a numpy matrix (no. of regionsx224x224x3) will be made and appended
 	# added pseudo row which will be removed later
 	images=np.zeros((1,224,224,3))
-
+	t1=time.time()
 	print "Loading VGG16"
 	model=vgg16()
 
+	t2=time.time()
 	for name in train_list:
 		img=cv2.imread(DIR+name)
 
@@ -42,9 +43,11 @@ def main():
 			
 		images=np.append(images,processed_regions,axis=0)
 
+	t3=time.time()
 	# extraction of 4096 dimensional features
 	visual_words=model.predict(images[1:,:,:,:])
 	
+	t4=time.time()
 	print "Shape of the visual words matrix: ", 
 	print visual_words.shape
 
@@ -52,8 +55,16 @@ def main():
 	pca=PCA(n_components=500)
 	visual_words_reduced=pca.fit_transform(visual_words)
 
+	t5=time.time()
 	print "Saving the Visual Words"
 	np.save('../Models/visual_words',visual_words)
 
+	print "Completed computation of vocabulary space"
+	print "Times required: "
+	print "Loading VGG16: %.2fs"  %(t2-t1)
+	print "Constructing Image Matrix: %.2fs" %(t3-t2)
+	print "Feature Extraction: %.2fs" %(t4-t3)
+	print "PCA: %.2fs" %(t5-t4)
+	 
 if __name__ == '__main__':
 	main()

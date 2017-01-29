@@ -41,7 +41,11 @@ def main():
 			
 		images=np.append(images,processed_regions,axis=0)
 
+	# extraction of 4096 dimensional features
 	visual_words=model.predict(images[1:,:,:,:])
-	print "Computed all the features: Constructing Clustering Tree"
+	
+	print "Shape of the visual words matrix: ", 
+	print visual_words.shape
+	print "Computed all the features: Dimensionality Reduction"
 if __name__ == '__main__':
 	main()

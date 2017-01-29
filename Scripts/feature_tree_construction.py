@@ -14,8 +14,9 @@ def main():
 	print "Opening list of training images"
 	train_list=open(sys.argv[1],'r').read().splitlines()
 	
-	# for every image, a numpy matrix (no. of regions x 4096) will be made and appended
-	visual_words=[]
+	# for every image, a numpy matrix (no. of regionsx224x224x3) will be made and appended
+	# added pseudo row which will be removed later
+	images=np.zeros((1,224,224,3))
 
 	print "Loading VGG16"
 	model=vgg16()
@@ -37,8 +38,10 @@ def main():
 			# crops the region and resizes it to 224x224
 			crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
 			processed_regions[idx,:,:,:]=process_image(crop_img)
+			
+		images=np.append(images,processed_regions,axis=0)
 
-		visual_words.append(model.predict(processed_regions))
+	visual_words=model.predict(images[1:,:,:,:])
 	print "Computed all the features: Constructing Clustering Tree"
 if __name__ == '__main__':
 	main()

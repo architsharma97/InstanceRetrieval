@@ -26,7 +26,9 @@ def main():
 		print "Selecting regions for " + name
 		img_lbl, regions=selective_search(img,scale=scale,sigma=0.9, min_size=10)
 		print "Number of regions: " + str(len(regions))
-		features=np.zeros((len(regions),4096))
+
+		# crop and process all images, and then feed to CNN 
+		processed_regions=np.zeros((len(regions),224,224,3))
 		
 		print "Computing features for selected regions"
 		for idx,r in enumerate(regions):
@@ -34,8 +36,9 @@ def main():
 
 			# crops the region and resizes it to 224x224
 			crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
-			features[idx,:]=model.predict(process_image(crop_img))
+			processed_regions[idx,:,:,:]=process_image(crop_img)
 
-		visual_words.append(features)
+		visual_words.append(model.predict(processed_regions))
+	print "Computed all the features: Constructing Clustering Tree"
 if __name__ == '__main__':
 	main()

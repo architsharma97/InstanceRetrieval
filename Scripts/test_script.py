@@ -17,12 +17,14 @@ print len(regions)
 t3=time.time()
 
 # feature computation for selected regions
-features=np.zeros((100,4096))
+cropped_images=np.zeros((100,224,224,3))
 for i,r in enumerate(regions[:100]):
 	print r
 	x,y,w,h=r['rect']
 	crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
-	features[i,:]=model.predict(process_image(crop_img))
+	cropped_images[i,:,:,:]=process_image(crop_img)
+features=model.predict(cropped_images)
+print features.shape
 t4=time.time()
 
 print "Time taken to load VGG16: " + str(t2-t1)

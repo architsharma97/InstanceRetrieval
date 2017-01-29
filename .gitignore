@@ -1,2 +1,4 @@
 Dataset/
 Literature/
+*.pyc
+*selectivesearch.py

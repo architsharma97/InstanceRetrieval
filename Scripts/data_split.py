@@ -3,18 +3,27 @@ import random
 
 random.seed(23)
 
-folder_list = os.listdir('../Dataset')
-data_dict = {}
+train_list = os.listdir('../Dataset/train')
+val_list = os.listdir('../Dataset/val')
+train_dict = {}
+val_dict = {}
 
-for each in folder_list:
-    data_dict[each] = os.listdir('../Dataset/'+each)
+for each in train_list:
+    train_dict[each] = os.listdir('../Dataset/train/'+each)
+
+for each in val_list:
+    val_dict[each] = os.listdir('../Dataset/val/'+each)
+
 
 train_list = []
 val_list = []
-for key in data_dict.keys():
-    random.shuffle(data_dict[key])
-    train_list = data_dict[key][:57]
-    val_list = data_dict[key][57:]
+
+for key in train_dict.keys():
+    random.shuffle(train_dict[key])
+    random.shuffle(val_dict[key])
+
+    train_list = train_dict[key]
+    val_list = val_dict[key]
     with open('../train_list.txt','a') as f:
         for a in train_list:
             f.write(key+'/'+a+'\n')

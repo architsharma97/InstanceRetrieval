@@ -25,7 +25,7 @@ def main():
 
 		print "Selecting regions for " + name
 		img_lbl, regions=selective_search(img,scale=scale,sigma=0.9, min_size=10)
-		print "Number of regions: " + len(regions)
+		print "Number of regions: " + str(len(regions))
 		features=np.zeros((len(regions),4096))
 		
 		print "Computing features for selected regions"
@@ -34,7 +34,7 @@ def main():
 
 			# crops the region and resizes it to 224x224
 			crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
-			features[i,:]=model.predict(process_image(crop_img))
+			features[idx,:]=model.predict(process_image(crop_img))
 
 		visual_words.append(features)
 if __name__ == '__main__':

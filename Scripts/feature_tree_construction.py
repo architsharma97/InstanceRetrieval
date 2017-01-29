@@ -47,9 +47,10 @@ def main():
 	
 	print "Shape of the visual words matrix: ", 
 	print visual_words.shape
-	
+
 	print "Computed all the features: Dimensionality Reduction"
 	pca=PCA(n_components=500)
-	pca.fit(visual_words)
+	visual_words_reduced=pca.fit_transform(visual_words)
+
 if __name__ == '__main__':
 	main()

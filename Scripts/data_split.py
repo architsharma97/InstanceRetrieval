@@ -13,14 +13,11 @@ train_list = []
 val_list = []
 for key in data_dict.keys():
     random.shuffle(data_dict[key])
-    train_list.extend(data_dict[key][:57])
-    val_list.extend(data_dict[key][57:])
-
-
-with open('../train_list.txt','w') as f:
-    for a in train_list:
-        f.write(a+'\n')
-        
-with open('../val_list.txt','w') as f:
-    for a in val_list:
-        f.write(a+'\n')
+    train_list = data_dict[key][:57]
+    val_list = data_dict[key][57:]
+    with open('../train_list.txt','a') as f:
+        for a in train_list:
+            f.write(key+'/'+a+'\n')
+    with open('../val_list.txt','a') as f:
+        for a in val_list:
+            f.write(key+'/'+a+'\n')

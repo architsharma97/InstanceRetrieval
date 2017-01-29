@@ -51,7 +51,9 @@ def main():
 	print "Computed all the features: Dimensionality Reduction"
 	pca=PCA(n_components=500)
 	visual_words_reduced=pca.fit_transform(visual_words)
-	np.save('../visual_words',visual_words)
+
+	print "Saving the Visual Words"
+	np.save('../Models/visual_words',visual_words)
 
 if __name__ == '__main__':
 	main()

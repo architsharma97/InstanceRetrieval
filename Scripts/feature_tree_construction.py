@@ -51,11 +51,11 @@ def main():
 	print "Shape of the visual words matrix: ", 
 	print visual_words.shape
 
-	print "Computed all the features: Dimensionality Reduction"
-	pca=PCA(n_components=500)
-	visual_words_reduced=pca.fit_transform(visual_words)
+	# print "Computed all the features: Dimensionality Reduction"
+	# pca=PCA(n_components=500)
+	# visual_words_reduced=pca.fit_transform(visual_words)
 
-	t5=time.time()
+	# t5=time.time()
 	print "Saving the Visual Words"
 	np.save('../Models/visual_words',visual_words)
 
@@ -64,7 +64,7 @@ def main():
 	print "Loading VGG16: %.2fs"  %(t2-t1)
 	print "Constructing Image Matrix: %.2fs" %(t3-t2)
 	print "Feature Extraction: %.2fs" %(t4-t3)
-	print "PCA: %.2fs" %(t5-t4)
+	# print "PCA: %.2fs" %(t5-t4)
 	 
 if __name__ == '__main__':
 	main()

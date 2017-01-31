@@ -1,27 +1,38 @@
 import sys
+import time
+from random import shuffle
+
 import cv2
 import numpy as np
+
 from selectivesearch import *
 from utils import *
+
 from sklearn.decomposition import PCA
-import time
+
 # Argument 1: takes in the list of training images from the dataset
 # Argument 2: scale paramenter for selective search
 
 DIR='../Dataset/train/'
 scale=int(sys.argv[2])
 
-def main():
-	print "Opening list of training images"
-	train_list=open(sys.argv[1],'r').read().splitlines()
+print "Loading VGG16"
+model=vgg16()
+
+def get_visual_words(idx, train_list):
+	'''
+	Extraction of visual words is split. The results hereby will be approximate.
+	idx: Portion of actual training data (1<=idx<=8)
+	train_list: directory of images
+	scale: scale at which selective search will operate
+	'''
+	# print "Opening list of training images"
+	# train_list=open(sys.argv[1],'r').read().splitlines()
 	
 	# for every image, a numpy matrix (no. of regionsx224x224x3) will be made and appended
 	# added pseudo row which will be removed later
 	images=np.zeros((1,224,224,3))
-	t1=time.time()
-	print "Loading VGG16"
-	model=vgg16()
-
+	
 	t2=time.time()
 	for name in train_list:
 		img=cv2.imread(DIR+name)
@@ -51,20 +62,22 @@ def main():
 	print "Shape of the visual words matrix: ", 
 	print visual_words.shape
 
-	# print "Computed all the features: Dimensionality Reduction"
-	# pca=PCA(n_components=500)
-	# visual_words_reduced=pca.fit_transform(visual_words)
+	print "Computed all the features: Dimensionality Reduction"
+	pca=PCA(n_components=500)
+	visual_words_reduced=pca.fit_transform(visual_words)
 
-	# t5=time.time()
+	t5=time.time()
 	print "Saving the Visual Words"
-	np.save('../Models/visual_words.npy',visual_words)
+	np.save('../Models/visual_words_'+str(idx)+'.npy', visual_words_reduced)
 
-	print "Completed computation of vocabulary space"
-	print "Times required: "
-	print "Loading VGG16: %.2fs"  %(t2-t1)
+	print "Completed computation of part " + str(idx) + " vocabulary space"
+	print "Times required "
 	print "Constructing Image Matrix: %.2fs" %(t3-t2)
 	print "Feature Extraction: %.2fs" %(t4-t3)
-	# print "PCA: %.2fs" %(t5-t4)
-	 
-if __name__ == '__main__':
-	main()
+	print "PCA: %.2fs" %(t5-t4)
+
+train_list=open(sys.argv[1],'r').read().splitlines()
+shuffle(train_list)
+n_images=len(train_list)
+for idx in range(1,9):
+	get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8])

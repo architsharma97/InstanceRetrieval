@@ -51,8 +51,8 @@ def get_visual_words(idx, train_list):
 			crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
 			processed_regions[idx,:,:,:]=process_image(crop_img)
 			
-			# extraction of 4096 dimensional features: appended into a list
-			regions_by_image+=[model.predict(processed_regions)]
+		# extraction of 4096 dimensional features: appended into a list
+		regions_by_image+=[model.predict(processed_regions)]
 
 	t3=time.time()
 

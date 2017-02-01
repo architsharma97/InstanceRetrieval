@@ -29,9 +29,8 @@ def get_visual_words(idx, train_list):
 	# print "Opening list of training images"
 	# train_list=open(sys.argv[1],'r').read().splitlines()
 	
-	# for every image, a numpy matrix (no. of regionsx224x224x3) will be made and appended
-	# added pseudo row which will be removed later
-	images=np.zeros((1,224,224,3))
+	# a list is maintained which contains numpy matrices.
+	regions_by_image=[]
 	
 	t2=time.time()
 	for name in train_list:
@@ -52,29 +51,40 @@ def get_visual_words(idx, train_list):
 			crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
 			processed_regions[idx,:,:,:]=process_image(crop_img)
 			
-		images=np.append(images,processed_regions,axis=0)
+			# extraction of 4096 dimensional features: appended into a list
+			regions_by_image+=[model.predict(processed_regions)]
 
 	t3=time.time()
-	# extraction of 4096 dimensional features
-	visual_words=model.predict(images[1:,:,:,:])
+
+	tot_regions=0
+	for regions in regions_by_image:
+		tot_regions+=regions.shape[0]
+
+	visual_words=np.zeros((tot_regions,4096))
 	
+	# maintains count of regions donw
+	regions_count=0
+	for regions in regions_by_image:
+		visual_words[regions_count:regions_count+regions.shape[0],:]=regions
+		regions_count+=regions.shape[0]
+
 	t4=time.time()
 	print "Shape of the visual words matrix: ", 
 	print visual_words.shape
 
-	print "Computed all the features: Dimensionality Reduction"
-	pca=PCA(n_components=500)
-	visual_words_reduced=pca.fit_transform(visual_words)
+	# print "Computed all the features: Dimensionality Reduction"
+	# pca=PCA(n_components=500)
+	# visual_words_reduced=pca.fit_transform(visual_words)
 
-	t5=time.time()
-	print "Saving the Visual Words"
-	np.save('../Models/visual_words_'+str(idx)+'.npy', visual_words_reduced)
+	# t5=time.time()
+	print "Saving the full sized visual Words"
+	np.save('../Models/visual_words_'+str(idx)+'.npy', visual_words)
 
 	print "Completed computation of part " + str(idx) + " vocabulary space"
 	print "Times required "
-	print "Constructing Image Matrix: %.2fs" %(t3-t2)
-	print "Feature Extraction: %.2fs" %(t4-t3)
-	print "PCA: %.2fs" %(t5-t4)
+	print "Feature Extraction + Selecting Regions of Interest: %.2fs" %(t3-t2)
+	print "Concatatenation of Regions: %.2fs" %(t4-t3)
+	# print "PCA: %.2fs" %(t5-t4)
 
 train_list=open(sys.argv[1],'r').read().splitlines()
 shuffle(train_list)

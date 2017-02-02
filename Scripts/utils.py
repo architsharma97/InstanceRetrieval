@@ -20,7 +20,7 @@ def process_image(img):
 	'''
 	img: A numpy array for the image. Make sure the image is 224x224
 	'''
-	print "Pre-processing image"
+	# print "Pre-processing image"
 
 	x = image.img_to_array(img)
 	x = np.expand_dims(x, axis=0)

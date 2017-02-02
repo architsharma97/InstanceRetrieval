@@ -77,7 +77,7 @@ def get_visual_words(file_idx, train_list, regions_list):
 	# visual_words_reduced=pca.fit_transform(visual_words)
 
 	# t5=time.time()
-	print "Saving the full sized visual Words"
+	print "Saving the full sized visual words"
 	np.save('../Models/visual_words_'+str(file_idx)+'.npy', visual_words)
 
 	print "Completed computation of part " + str(file_idx) + " vocabulary space"

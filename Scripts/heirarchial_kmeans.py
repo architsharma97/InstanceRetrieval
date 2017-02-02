@@ -3,14 +3,29 @@ from sklearn.cluster import KMeans
 import math
 
 class h_kmeans:
+	"""
+	Arguments:
+		data_matrix: NXM Matrix [N:(Sample Size), M:(Features)]
+	Methods:
+		cluster
+		predict
+	returns h_kmeans object
+	"""
 
 	def __init__(self, data_matrix = None, num_leaves = None):
+		"""Initialize the class with data matrix"""
 
 		self.data_matrix = data_matrix
 		self.num_leaves = num_leaves
 		self.tree = None
 
 	def cluster(self, branch_factor = 3):
+		"""
+		Creates a tree with leaves stored in the tree array 
+		and labels of each node stored in labels array
+		Arguments:
+			branch_factor(int): Number of branches at each node
+		"""
 		self.tree = []
 		self.labels = []
 		self.branch_factor = branch_factor
@@ -22,12 +37,12 @@ class h_kmeans:
 		self.tree.append(X)
 
 		for i in range(num_layers):
-			print(num_layers)
-			print(num_layer_cluster)
-
 			kmeans = KMeans(num_layer_cluster, random_state=0).fit(X)
 			self.labels.append(kmeans.labels_)
-			print(kmeans.labels_)
 
 			X = kmeans.cluster_centers_
 			num_layer_cluster = num_layer_cluster/self.branch_factor
+			self.tree.append(X)
+
+	def predict():
+		pass

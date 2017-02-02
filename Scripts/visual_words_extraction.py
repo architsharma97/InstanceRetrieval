@@ -50,7 +50,7 @@ def get_visual_words(idx, train_list):
 			# crops the region and resizes it to 224x224
 			crop_img=cv2.resize(img[y:y+h+1,x:x+w+1],(224,224))
 			processed_regions[idx,:,:,:]=process_image(crop_img)
-			
+
 		# extraction of 4096 dimensional features: appended into a list
 		regions_by_image+=[model.predict(processed_regions)]
 
@@ -60,7 +60,7 @@ def get_visual_words(idx, train_list):
 	for regions in regions_by_image:
 		tot_regions+=regions.shape[0]
 
-	visual_words=np.zeros((tot_regions,4096))
+	visual_words=np.zeros((tot_regions, 4096))
 	
 	# maintains count of regions donw
 	regions_count=0
@@ -87,7 +87,7 @@ def get_visual_words(idx, train_list):
 	# print "PCA: %.2fs" %(t5-t4)
 
 train_list=open(sys.argv[1],'r').read().splitlines()
-shuffle(train_list)
+# shuffle(train_list)
 n_images=len(train_list)
 for idx in range(1,9):
 	get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8])

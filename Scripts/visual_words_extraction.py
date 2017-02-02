@@ -19,7 +19,7 @@ scale=int(sys.argv[2])
 print "Loading VGG16"
 model=vgg16()
 
-def get_visual_words(idx, train_list, regions_list):
+def get_visual_words(file_idx, train_list, regions_list):
 	'''
 	Extraction of visual words is split. The results hereby will be approximate.
 	idx: Portion of actual training data (1<=idx<=8)
@@ -78,9 +78,9 @@ def get_visual_words(idx, train_list, regions_list):
 
 	# t5=time.time()
 	print "Saving the full sized visual Words"
-	np.save('../Models/visual_words_'+str(idx)+'.npy', visual_words)
+	np.save('../Models/visual_words_'+str(file_idx)+'.npy', visual_words)
 
-	print "Completed computation of part " + str(idx) + " vocabulary space"
+	print "Completed computation of part " + str(file_idx) + " vocabulary space"
 	print "Times required "
 	print "Feature Extraction + Selecting Regions of Interest: %.2fs" %(t3-t2)
 	print "Concatatenation of Regions: %.2fs" %(t4-t3)

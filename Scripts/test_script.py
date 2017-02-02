@@ -2,6 +2,7 @@ from utils import *
 import skimage.data
 from selectivesearch import *
 import cv2
+from sklearn.decomposition import PCA
 import time
 
 t1=time.time()
@@ -28,10 +29,10 @@ print features.shape
 
 t4=time.time()
 pca=PCA(n_components=500)
-visual_words_reduced=pca.fit_transform(visual_words)
+visual_words_reduced=pca.fit_transform(features)
 
 
-np.save('test',visual_words_reduced)
+np.save('../models/test_words',visual_words_reduced)
 t5=time.time()
 print "Time taken to load VGG16: " + str(t2-t1)
 print "Time taken for getting regions from Selective Search: " + str(t3-t2)

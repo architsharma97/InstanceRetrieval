@@ -19,7 +19,7 @@ scale=int(sys.argv[2])
 print "Loading VGG16"
 model=vgg16()
 
-def get_visual_words(idx, train_list):
+def get_visual_words(idx, train_list, regions_list):
 	'''
 	Extraction of visual words is split. The results hereby will be approximate.
 	idx: Portion of actual training data (1<=idx<=8)
@@ -39,7 +39,7 @@ def get_visual_words(idx, train_list):
 		print "Selecting regions for " + name
 		img_lbl, regions=selective_search(img, scale=scale,sigma=0.9, min_size=10)
 		print "Number of regions: " + str(len(regions))
-
+		regions_list.write(str(len(regions))+"\n")
 		# crop and process all images, and then feed to CNN 
 		processed_regions=np.zeros((len(regions),224,224,3))
 		
@@ -89,5 +89,6 @@ def get_visual_words(idx, train_list):
 train_list=open(sys.argv[1],'r').read().splitlines()
 # shuffle(train_list)
 n_images=len(train_list)
+regions_list=open("../Models/regions_lixt.txt",'w')
 for idx in range(1,9):
-	get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8])
+	get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8], regions_list)

@@ -29,6 +29,7 @@ class h_kmeans:
 		self.tree = []
 		self.labels = []
 		self.branch_factor = branch_factor
+		
 
 		num_data_points = self.data_matrix.shape[0]
 		num_layers = int(math.log(num_data_points, self.branch_factor))
@@ -44,5 +45,5 @@ class h_kmeans:
 			num_layer_cluster = num_layer_cluster/self.branch_factor
 			self.tree.append(X)
 
-	def predict():
+	def predict(self):
 		pass

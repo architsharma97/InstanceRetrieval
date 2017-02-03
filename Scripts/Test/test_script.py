@@ -35,7 +35,7 @@ pca=PCA(n_components=500)
 visual_words_reduced=pca.fit_transform(features)
 
 
-np.save('../../models/test_words',visual_words_reduced)
+np.save('../../Models/test_words',visual_words_reduced)
 t5=time.time()
 print "Time taken to load VGG16: " + str(t2-t1)
 print "Time taken for getting regions from Selective Search: " + str(t3-t2)

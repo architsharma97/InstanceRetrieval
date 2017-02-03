@@ -25,8 +25,6 @@ class h_kmeans:
 
 	def cluster(self, branch_factor = 3):
 		"""
-		Creates a tree with leaves stored in the tree array 
-		and labels of each node stored in labels array
 		Arguments:
 			branch_factor(int): Number of branches at each node
 		"""

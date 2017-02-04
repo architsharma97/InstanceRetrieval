@@ -20,7 +20,7 @@ class h_kmeans:
 		self.num_leaves = num_leaves
 		self.tree = None
 		with open(inv_file,'r') as f:
-			self.inv_file = f.read().split('\n')[:-2]
+			self.inv_file = f.read().split('\n')[:-1]
 		
 
 	def cluster(self, branch_factor = 3):
@@ -50,7 +50,7 @@ class h_kmeans:
 		num_layers = int(math.log(num_data_points, self.branch_factor))
 		num_layer_cluster = num_data_points/self.branch_factor #convert to ceil
 		
-		def sub_cluster(data_cluster, num_cluster, num_layer, cluster_inf):
+		def sub_cluster(data_cluster, num_cluster, num_layer, cluster_inf, ):
 			num_layer+=1
 			print(data_cluster.shape)
 			if data_cluster.shape[0]<6:

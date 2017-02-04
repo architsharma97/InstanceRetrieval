@@ -13,7 +13,7 @@ class h_kmeans:
 	returns h_kmeans object
 	"""
 
-	def __init__(self, data_matrix = None,inv_file = '../dummy_file_list.txt',num_leaves = None):
+	def __init__(self, data_matrix,inv_file = '../dummy_file_list.txt',num_leaves = 5):
 		"""Initialize the class with data matrix"""
 
 		self.data_matrix = data_matrix
@@ -50,10 +50,10 @@ class h_kmeans:
 		num_layers = int(math.log(num_data_points, self.branch_factor))
 		num_layer_cluster = num_data_points/self.branch_factor #convert to ceil
 		
-		def sub_cluster(data_cluster, num_cluster, num_layer, cluster_inf, ):
+		def sub_cluster(data_cluster, num_cluster, num_layer, cluster_inf):
 			num_layer+=1
 			print(data_cluster.shape)
-			if data_cluster.shape[0]<6:
+			if data_cluster.shape[0]<self.num_leaves:
 				return
 			kmeans = KMeans(num_cluster, random_state=0).fit(data_cluster)
 			self.tree.extend(kmeans.cluster_centers_.tolist())

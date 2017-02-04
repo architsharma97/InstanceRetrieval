@@ -45,10 +45,6 @@ class h_kmeans:
 			for i in range(int(each)):
 				self.node_file.append(num_image)
 			num_image+=1
-
-
-		num_layers = int(math.log(num_data_points, self.branch_factor))
-		num_layer_cluster = num_data_points/self.branch_factor #convert to ceil
 		
 		def sub_cluster(data_cluster, num_cluster, num_layer, cluster_inf):
 			num_layer+=1

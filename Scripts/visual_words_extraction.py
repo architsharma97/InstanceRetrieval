@@ -12,6 +12,7 @@ from sklearn.decomposition import PCA
 
 # Argument 1: takes in the list of training images from the dataset
 # Argument 2: scale paramenter for selective search
+# Argument 3: Train or Val split (Train=0 and Val=1)
 
 DIR='../Dataset/train/'
 scale=int(sys.argv[2])
@@ -19,7 +20,7 @@ scale=int(sys.argv[2])
 print "Loading VGG16"
 model=vgg16()
 
-def get_visual_words(file_idx, train_list, regions_list):
+def get_visual_words(file_idx, train_list, regions_list, path_save):
 	'''
 	Extraction of visual words is split. The results hereby will be approximate.
 	idx: Portion of actual training data (1<=idx<=8)
@@ -78,7 +79,7 @@ def get_visual_words(file_idx, train_list, regions_list):
 
 	# t5=time.time()
 	print "Saving the full sized visual words"
-	np.save('../Models/VW_Train/visual_words_'+str(file_idx)+'.npy', visual_words)
+	np.save(path_save+'visual_words_'+str(file_idx)+'.npy', visual_words)
 
 	print "Completed computation of part " + str(file_idx) + " vocabulary space"
 	print "Times required "
@@ -86,9 +87,14 @@ def get_visual_words(file_idx, train_list, regions_list):
 	print "Concatatenation of Regions: %.2fs" %(t4-t3)
 	# print "PCA: %.2fs" %(t5-t4)
 
-train_list=open(sys.argv[1],'r').read().splitlines()
-# shuffle(train_list)
-n_images=len(train_list)
-regions_list=open("../Models/regions_lixt.txt",'w')
-for idx in range(1,9):
-	get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8], regions_list)
+if int(sys.argv[3])==0:
+	train_list=open(sys.argv[1],'r').read().splitlines()
+	# shuffle(train_list)
+	n_images=len(train_list)
+	regions_list=open("../Models/VW_Train/regions_lixt.txt",'w')
+	for idx in range(1,9):
+		get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8], regions_list, '../Models/VW_Train/')
+else:
+	val_list=open(sys.argv[1],'r').read().splitlines()
+	regions_list=open("../Models/VW_Val/regions_list.txt","w")
+	get_visual_words(1,val_list,regions_list,'../Models/VW_Val')

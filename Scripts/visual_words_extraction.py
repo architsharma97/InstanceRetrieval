@@ -99,4 +99,4 @@ else:
 	DIR='../Dataset/val/'
 	val_list=open(sys.argv[1],'r').read().splitlines()
 	regions_list=open("../Models/VW_Val/regions_list.txt","w")
-	get_visual_words(1,val_list,regions_list,'../Models/VW_Val')
+	get_visual_words(1,val_list,regions_list,'../Models/VW_Val/')

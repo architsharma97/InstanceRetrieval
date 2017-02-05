@@ -14,7 +14,7 @@ from sklearn.decomposition import PCA
 # Argument 2: scale paramenter for selective search
 # Argument 3: Train or Val split (Train=0 and Val=1)
 
-DIR='../Dataset/train/'
+DIR=''
 scale=int(sys.argv[2])
 
 print "Loading VGG16"
@@ -88,6 +88,7 @@ def get_visual_words(file_idx, train_list, regions_list, path_save):
 	# print "PCA: %.2fs" %(t5-t4)
 
 if int(sys.argv[3])==0:
+	DIR='../Dataset/train/'
 	train_list=open(sys.argv[1],'r').read().splitlines()
 	# shuffle(train_list)
 	n_images=len(train_list)
@@ -95,6 +96,7 @@ if int(sys.argv[3])==0:
 	for idx in range(1,9):
 		get_visual_words(idx, train_list[n_images*(idx-1)/8:n_images*idx/8], regions_list, '../Models/VW_Train/')
 else:
+	DIR='../Dataset/val/'
 	val_list=open(sys.argv[1],'r').read().splitlines()
 	regions_list=open("../Models/VW_Val/regions_list.txt","w")
 	get_visual_words(1,val_list,regions_list,'../Models/VW_Val')

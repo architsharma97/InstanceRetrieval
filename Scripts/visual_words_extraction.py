@@ -63,7 +63,7 @@ def get_visual_words(file_idx, train_list, regions_list, path_save):
 
 	visual_words=np.zeros((tot_regions, 4096))
 	
-	# maintains count of regions donw
+	# maintains count of regions done
 	regions_count=0
 	for regions in regions_by_image:
 		visual_words[regions_count:regions_count+regions.shape[0],:]=regions

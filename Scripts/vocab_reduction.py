@@ -40,7 +40,7 @@ visual_words_reduced[:feature_matrix.shape[0],:]=pca.fit_transform(feature_matri
 
 t3=time.time()
 print "Saving PCA matrix in a pickle object"
-save_obj(pca, '../Models/PCAlayer.pkl')
+save_obj(pca, '../Models/PCAlayer_'+str(dim_red)+'.pkl')
 
 t4=time.time()
 print "Loading the rest of matrices and reducing them"

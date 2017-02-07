@@ -6,10 +6,11 @@ import time
 from utils import save_obj, load_obj
 
 from sklearn.decomposition import PCA
+import numpy as np
 
 # Argument 1: Number of dimension to which the data need to be reduced
 dim_red=int(sys.argv[1])
-print "Reducing data to " + str(dim_red) + "dimensions"
+print "Reducing data to " + str(dim_red) + " dimensions"
 
 matrix_sizes=[long(size) for size in open('../Models/VW_Train/shape_info.txt','r').read().splitlines()]
 

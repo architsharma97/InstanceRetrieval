@@ -16,7 +16,7 @@ matrix_sizes=[long(size) for size in open('../Models/VW_Train/shape_info.txt','r
 
 # approximate PCA
 num_words=0
-for i in range(5):
+for i in range(4):
 	num_words+=matrix_sizes[i]
 
 # matrix to be reduced
@@ -27,7 +27,7 @@ visual_words_reduced=np.zeros((matrix_sizes[8],dim_red))
 
 done_till_now=0
 t1=time.time()
-for i in range(1,6):
+for i in range(1,5):
 	print "Loading " + str(i) + "th visual words matrix for PCA"
 	feature_matrix[done_till_now:done_till_now+matrix_sizes[i-1],:]=np.load('../Models/VW_Train/visual_words_'+str(i)+'.npy')
 	done_till_now+=matrix_sizes[i-1]
@@ -36,7 +36,7 @@ t2=time.time()
 print "Performing Dimensionality reduction"
 pca=PCA(n_components=dim_red)
 
-print "Reducing and copying the initial 5 matrices"
+print "Reducing and copying the initial 4 matrices"
 visual_words_reduced[:feature_matrix.shape[0],:]=pca.fit_transform(feature_matrix)
 
 t3=time.time()
@@ -46,8 +46,8 @@ save_obj(pca, '../Models/PCAlayer_'+str(dim_red)+'.pkl')
 t4=time.time()
 print "Loading the rest of matrices and reducing them"
 
-# load 6th, 7th and 8th matrix separately and reduce them
-for i in range(6,9):
+# load 5th, 6th, 7th and 8th matrix separately and reduce them
+for i in range(5,9):
 	visual_words=np.load('../Models/VW_Train/visual_words_'+str(i)+'.npy')
 	visual_words_reduced[done_till_now:done_till_now+matrix_sizes[i-1],:]=pca.tranform(visual_words)
 	done_till_now+=matrix_sizes[i-1]
@@ -57,7 +57,7 @@ print "Saving the complete reduced matrix"
 np.save('../Models/VW_Train/visual_words_reduced.npy',visual_words_reduced)
 t6=time.time()
 
-print "Time to load first 5 visual words matrices: " + str(t2-t1)
+print "Time to load first 4 visual words matrices: " + str(t2-t1)
 print "Time to perform PCA: " + str(t3-t2)
 print "Time to save the PCA object: " + str(t4-t3)
 print "Time to load and reduce the rest of matrices: " + str(t5-t4)

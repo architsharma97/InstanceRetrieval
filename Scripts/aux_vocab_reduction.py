@@ -17,6 +17,7 @@ done_till_now=0
 
 # load 2nd, 3rd, 4th, 5th, 6th, 7th and 8th matrix separately and reduce them
 for i in range(1,9):
+	print "Loading visual_words_" + str(i)
 	visual_words=np.load('../Models/VW_Train/visual_words_'+str(i)+'.npy')
 	visual_words_reduced[done_till_now:done_till_now+matrix_sizes[i-1],:]=pca.transform(visual_words)
 	done_till_now+=matrix_sizes[i-1]

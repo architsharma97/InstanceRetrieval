@@ -4,18 +4,6 @@ from keras.preprocessing import image
 from keras.applications.vgg16 import preprocess_input
 from keras.models import Model
 import numpy as np
-
-import pickle
-
-# general function to save python objects using pickle
-def save_obj(obj, address):
-	with open(address, 'wb') as f:
-		pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
-
-# general function to load python objects using pickle
-def load_obj(address):
-	with open(address, 'rb')as f:
-		return pickle.load(f)
 		
 # use model.predict(process_image(img_path)) to get the fc2 layer output
 def vgg16():

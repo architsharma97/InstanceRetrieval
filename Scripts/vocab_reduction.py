@@ -3,7 +3,7 @@ import sys
 sys.path.append('../')
 import time
 
-from utils import save_obj, load_obj
+from pkl_utils import save_obj
 
 from sklearn.decomposition import PCA
 import numpy as np
@@ -28,7 +28,7 @@ visual_words_reduced=np.zeros((matrix_sizes[8],dim_red))
 done_till_now=0
 t1=time.time()
 for i in range(1,7):
-	print "Loaded " + str(i) + "th visual words matrix for PCA"
+	print "Loading " + str(i) + "th visual words matrix for PCA"
 	feature_matrix[done_till_now:done_till_now+matrix_sizes[i-1],:]=np.load('../Models/VW_Train/visual_words_'+str(i)+'.npy')
 	done_till_now+=matrix_sizes[i-1]
 

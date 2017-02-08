@@ -33,7 +33,7 @@ elif int(sys.argv[1])==1:
 	'''
 	validation_data=np.load('../Models/VW_Val/visual_words_reduced.npy')
 	vocab_tree=load_obj(sys.argv[2])
-	regions_list=open('../Models/VW_Val/regions_list.txt','r').read().splitlines()
+	regions_list=[int(num) for num in open('../Models/VW_Val/regions_list.txt','r').read().splitlines()]
 	output=open(sys.argv[3],'w')
 
 	matrix_idx=0

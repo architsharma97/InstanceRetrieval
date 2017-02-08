@@ -15,7 +15,7 @@ if not sys2:
 else:
 	matrix_sizes=[long(size) for size in open('../Models/VW_Val/shape_info.txt','r').read().splitlines()]
 	# final reduced matrix
-	visual_words_reduced=np.zeros((matrix_sizes[0],dim_red))]
+	visual_words_reduced=np.zeros((matrix_sizes[0],dim_red))
 	num_files=range(1,2)
 # loading precomputed pca
 pca=load_obj('../Models/PCAlayer_128.pkl')

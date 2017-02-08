@@ -6,7 +6,7 @@ from pkl_utils import save_obj
 
 # Argument 1: Train (0), Validation(1) or Test(2)
 
-if sys.argv[1]==0:
+if int(sys.argv[1])==0:
 	'''
 	Train Mode
 	Argument 2: Branch Factor
@@ -18,7 +18,7 @@ if sys.argv[1]==0:
 	save_obj(vocab_tree,'../Models/vocab_tree_1.pkl')
 
 # elif sys.argv[2]==1:
-	
+
 else:
 	'''
 	Test Mode

@@ -59,7 +59,7 @@ train_file_names=open(sys.argv[4],'r').read().splitlines()
 
 file_rankings=[train_file_names[rank] for rank in rankings]
 
-print "Outputting the file "
+print "Outputting the file"
 
 output=open('/'.join(img_address[:len(img_address)-1])+'/'+img_name+'.txt','w')
 

@@ -3,7 +3,7 @@ from sklearn.cluster import KMeans
 import math
 from collections import Counter
 
-def feature_predict(kmeans_tree,feature,num_layer = 1, cluster_inf = '0'):
+def feature_predict(kmeans_tree, feature, num_layer = 1, cluster_inf = '0'):
 		distance = []
 		feature = feature/np.linalg.norm(feature)
 		end = False
@@ -31,7 +31,7 @@ class h_kmeans:
 	returns h_kmeans object
 	"""
 
-	def __init__(self, data_matrix,inv_file = '../dummy_file_list.txt'):
+	def __init__(self, data_matrix, inv_file = '../dummy_file_list.txt'):
 		"""Initialize the class with data matrix"""
 
 		self.data_matrix = data_matrix
@@ -42,7 +42,7 @@ class h_kmeans:
 			self.num_files = len(self.inv_file)
 		
 
-	def cluster(self, branch_factor = 3,max_layer = 3):
+	def cluster(self, branch_factor = 3, max_layer = 3):
 		"""
 		Arguments:
 			branch_factor(int): Number of branches at each node
@@ -90,7 +90,7 @@ class h_kmeans:
 
 				sub_cluster(new_cluster, num_cluster, num_layer,cluster_inf+str(i))
 
-		sub_cluster(self.data_matrix,self.branch_factor,0, '0')
+		sub_cluster(self.data_matrix, self.branch_factor, 0, '0')
 
 
 		for key in self.branch_info.keys():
@@ -99,7 +99,7 @@ class h_kmeans:
 				image_indices = [self.node_file[x] for x in node_indices]
 				image_indices = list(set(image_indices))
 				self.branch_info[key+'image'] = image_indices
-				self.branch_info[key+'weights'] = math.log(float(self.num_files)/ len(image_indices))
+				self.branch_info[key+'weights'] = math.log(float(self.num_files)/len(image_indices))
 
 	def query(kmeans_tree, feature_matrix):
 		scores = np.zeros(kmeans_tree.num_files)

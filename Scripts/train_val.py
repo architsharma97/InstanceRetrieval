@@ -20,7 +20,7 @@ if int(sys.argv[1])==0:
 	data=np.load("../Models/VW_Train/visual_words_reduced.npy")
 	print "Creating Vocabulary Tree"
 	vocab_tree=hkm.h_kmeans(data, '../Models/VW_Train/regions_list.txt')
-	vocab_tree.cluster()
+	vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	print "Saving Vocabulary Tree"
 	save_obj(vocab_tree,'../Models/vocab_tree_1.pkl')

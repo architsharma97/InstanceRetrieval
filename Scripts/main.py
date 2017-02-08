@@ -6,7 +6,9 @@ from pkl_utils import save_obj, load_obj
 
 # Argument 1: Train (0), Validation(1) or Test(2)
 
-# def process_scores():
+def process_scores(score):
+	rankings=sorted(range(len(score)), key=lambda k: score[k])
+	return rankings
 
 if int(sys.argv[1])==0:
 	'''
@@ -27,14 +29,20 @@ elif int(sys.argv[1])==1:
 	'''
 	Validation mode
 	Argument 2: Location of the Vocabulary Tree (.pkl) constructed
+	Argument 3: Output file for Validation
 	'''
 	validation_data=np.load('../Models/VW_Val/visual_words_reduced.npy')
 	vocab_tree=load_obj(sys.argv[2])
 	regions_list=open('../Models/VW_Val/regions_list.txt','r').read().splitlines()
+	output=open(sys.argv[3],'w')
 
 	matrix_idx=0
 	for i in range(len(regions_list)):
-		scores=vocab_tree.query(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:])
+		score=vocab_tree.query(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:])
+		rankings=process_scores(score)
+		for file_idx in rankings[:len(rankings)-1]:
+			output.write(str(file_idx)+',')
+		output.write(str(rankings[len(rankings)-1]+'\n')
 		matrix_idx+=regions_list[i]
 else:
 	'''

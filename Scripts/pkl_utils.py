@@ -1,4 +1,4 @@
-import pickle
+import cPickle as pickle
 
 # general function to save python objects using pickle
 def save_obj(obj, address):

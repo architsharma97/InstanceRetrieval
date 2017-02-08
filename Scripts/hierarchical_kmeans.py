@@ -5,7 +5,7 @@ from collections import Counter
 
 def feature_predict(kmeans_tree,feature,num_layer = 1, cluster_inf = '0'):
 		distance = []
-		feature = feature/ np.linalg.norm(feature)
+		feature = feature/np.linalg.norm(feature)
 		end = False
 		for i in range(kmeans_tree.branch_factor):
 			if (str(num_layer)+';'+str(cluster_inf)+str(i)) in kmeans_tree.tree_info.keys():

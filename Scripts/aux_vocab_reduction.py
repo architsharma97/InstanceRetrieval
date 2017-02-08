@@ -30,4 +30,8 @@ for i in num_files:
 	done_till_now+=matrix_sizes[i-1]
 
 print "Saving the complete reduced matrix"
-np.save('../Models/VW_Train/visual_words_reduced.npy',visual_words_reduced)
+
+if not sys2:
+	np.save('../Models/VW_Train/visual_words_reduced.npy',visual_words_reduced)
+else:
+	np.save('../Models/VW_Val/visual_words_reduced.npy',visual_words_reduced)

@@ -14,6 +14,7 @@ from sklearn.decomposition import PCA
 # Argument 2: scale paramenter for selective search
 # Argument 3: Train or Val split (Train=0 and Val=1)
 
+# making it global
 DIR=''
 scale=int(sys.argv[2])
 
@@ -27,6 +28,8 @@ def get_visual_words(file_idx, train_list, regions_list, path_save):
 	train_list: directory of images
 	scale: scale at which selective search will operate
 	'''
+
+	global DIR
 	# print "Opening list of training images"
 	# train_list=open(sys.argv[1],'r').read().splitlines()
 	
@@ -39,8 +42,10 @@ def get_visual_words(file_idx, train_list, regions_list, path_save):
 
 		print "Selecting regions for " + name
 		img_lbl, regions=selective_search(img, scale=scale,sigma=0.9, min_size=10)
+		
 		print "Number of regions: " + str(len(regions))
 		regions_list.write(str(len(regions))+"\n")
+		
 		# crop and process all images, and then feed to CNN 
 		processed_regions=np.zeros((len(regions),224,224,3))
 		

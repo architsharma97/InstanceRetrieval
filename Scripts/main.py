@@ -17,7 +17,7 @@ if sys.argv[1]==0:
 	vocab_tree.cluster()
 	save_obj(vocab_tree,'../Models/vocab_tree_1.pkl')
 
-elif sys.argv[2]==1:
+# elif sys.argv[2]==1:
 	
 else:
 	'''

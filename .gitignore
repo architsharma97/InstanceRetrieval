@@ -3,4 +3,4 @@ Literature/
 *.pyc
 *selectivesearch.py
 *.npy
-*.~txt
+*.txt~

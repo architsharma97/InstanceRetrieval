@@ -2,7 +2,6 @@ import numpy as np
 from sklearn.cluster import KMeans
 import math
 from collections import Counter
-import pkl_utils
 
 def feature_predict(kmeans_tree,feature,num_layer = 1, cluster_inf = '0'):
 		distance = []
@@ -102,18 +101,10 @@ class h_kmeans:
 				self.branch_info[key+'image'] = image_indices
 				self.branch_info[key+'weights'] = math.log(float(self.num_files)/ len(image_indices))
 
-		# print("She's gonna blow")
-		# pkl_utils.save_obj(self,'../Models/porcupine.pkl')
-		# print("Bomb Defused")
-
-
-	
-
-	def query(kmeans_tree,feature_matrix):
+	def query(kmeans_tree, feature_matrix):
 		scores = np.zeros(kmeans_tree.num_files)
 		for feature in feature_matrix:
 			indices, weight = feature_predict(kmeans_tree, feature)
 			for index in indices:
 				scores[index]+=weight
 		return scores
-

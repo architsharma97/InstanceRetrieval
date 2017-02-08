@@ -5,7 +5,6 @@ import numpy as np
 import cv2
 
 from utils import *
-from pkl_utils import *
 
 from selectivesearch import *
 
@@ -22,7 +21,7 @@ print "Loading vgg16"
 model=vgg16()
 
 print "Loading Vocabulary Tree"
-vocab_tree=load_obj(sys.argv[3])
+vocab_tree=np.load(sys.argv[3])
 
 print "Loading PCA Layer"
 pca=load_obj(sys.argv[2])

@@ -8,13 +8,15 @@ from utils import *
 from pkl_utils import *
 
 from selectivesearch import *
+
 '''
 Test Mode
 Argument 1: Address of the image
 Argument 2: PCAlayer (.pkl) file
 Argument 3: .pkl file of the trained tree
 Argument 4: Original list of training file names
-''' 
+'''
+
 t1=time.time()
 print "Loading vgg16"
 model=vgg16()

@@ -56,7 +56,7 @@ class h_kmeans:
 			labels = kmeans.labels_
 			
 			for i in range(num_cluster):
-				indices = np.array([j for j, x in enumerate(labels) if x == i])
+				indices = np.array([j for /j, x in enumerate(labels) if x == i])
 				self.tree_info[str(num_layer)+';'+cluster_inf+str(i)] = kmeans.cluster_centers_[i,:]
 				self.branch_info[str(num_layer)+';'+cluster_inf+str(i)+'indices'] = indices
 				new_cluster = data_cluster[indices,:]

@@ -13,8 +13,9 @@ Test Mode
 Argument 1: Address of the image
 Argument 2: PCAlayer (.pkl) file
 Argument 3: .pkl file of the trained tree
+Argument 4: Original list of training file names
 ''' 
-
+t1=time.time()
 print "Loading vgg16"
 model=vgg16()
 
@@ -28,6 +29,8 @@ img_address=sys.argv[1]
 
 print "Reading in image"
 img=cv2.imread(img_address)
+img_address=img_address.split('/')
+img_name=img_address[len(img_address)-1].split('.')[0]
 
 print "Selecting regions for the image"
 img_lbl, regions=selective_search(img, scale=500,sigma=0.9, min_size=10)
@@ -49,3 +52,17 @@ feature_matrix=pca.transform(feature_matrix)
 print "Getting the rankings"
 score=vocab_tree.query_tree(vocab_tree, feature_matrix)
 rankings=sorted(range(len(score)), key=lambda k: score[k])
+
+train_file_names=open(sys.argv[4],'r').read().splitlines()
+
+file_rankings=[train_file_names[rank] for rank in rankings]
+
+print "Outputting the file "
+
+output=open('/'.join(img_address[:len(img_address)-1])+'/'+img_name+'.txt','w')
+
+for name in file_rankings:
+	folder, img_code = name.split('/')
+	output.write(img_code + ' ' + folder+'\n')
+
+print "Time to complete the query: " + str(time.time()-t1) + " seconds"

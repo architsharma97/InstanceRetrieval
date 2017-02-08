@@ -42,5 +42,5 @@ elif int(sys.argv[1])==1:
 		rankings=process_scores(score)
 		for file_idx in rankings[:len(rankings)-1]:
 			output.write(str(file_idx)+',')
-		output.write(str(rankings[len(rankings)-1]+'\n')
+		output.write(str(rankings[len(rankings)-1])+'\n')
 		matrix_idx+=regions_list[i]

@@ -2,6 +2,9 @@ import numpy as np
 from sklearn.cluster import KMeans
 import math
 from collections import Counter
+import pickle
+
+
 
 class h_kmeans:
 	"""
@@ -21,9 +24,10 @@ class h_kmeans:
 		self.tree = None
 		with open(inv_file,'r') as f:
 			self.inv_file = f.read().split('\n')[:-1]
+			self.num_files = len(self.inv_file)
 		
 
-	def cluster(self, branch_factor = 3):
+	def cluster(self, branch_factor = 3,max_layer = 3):
 		"""
 		Arguments:
 			branch_factor(int): Number of branches at each node
@@ -33,7 +37,7 @@ class h_kmeans:
 		self.branch_info = {}
 		self.labels = []
 		self.branch_factor = branch_factor
-		self.weight_matrix = []
+		
 		self.node_file = []
 		
 
@@ -49,7 +53,7 @@ class h_kmeans:
 		def sub_cluster(data_cluster, num_cluster, num_layer, cluster_inf):
 			num_layer+=1
 			print(data_cluster.shape)
-			if data_cluster.shape[0]<self.num_leaves:
+			if data_cluster.shape[0]<self.num_leaves or num_layer>max_layer:
 				return
 			kmeans = KMeans(num_cluster, random_state=0).fit(data_cluster)
 			self.tree.extend(kmeans.cluster_centers_.tolist())
@@ -57,13 +61,54 @@ class h_kmeans:
 			
 			for i in range(num_cluster):
 				indices = np.array([j for /j, x in enumerate(labels) if x == i])
-				self.tree_info[str(num_layer)+';'+cluster_inf+str(i)] = kmeans.cluster_centers_[i,:]
-				self.branch_info[str(num_layer)+';'+cluster_inf+str(i)+'indices'] = indices
+				
 				new_cluster = data_cluster[indices,:]
+
+				if new_cluster.shape[0]<self.num_leaves:
+					norm = kmeans.cluster_centers_[i,:] / np.linalg.norm(kmeans.cluster_centers_[i,:])
+					self.tree_info[str(num_layer)+';'+cluster_inf+str(i)+'end'] = norm
+					self.branch_info[str(num_layer)+';'+cluster_inf+str(i)+'indices'+'end'] = indices
+				else:
+					norm = kmeans.cluster_centers_[i,:] / np.linalg.norm(kmeans.cluster_centers_[i,:])
+					self.tree_info[str(num_layer)+';'+cluster_inf+str(i)] = norm
+					self.branch_info[str(num_layer)+';'+cluster_inf+str(i)+'indices'] = indices
+
 				sub_cluster(new_cluster, num_cluster, num_layer,cluster_inf+str(i))
 
 		sub_cluster(self.data_matrix,self.branch_factor,0, '0')
 
+		for key in self.branch_info.keys():
+			if 'end' in key:
+				node_indices = self.branch_info[key]
+				image_indices = [self.node_file[x] for x in node_indices]
+				image_indices = list(set(image_indices))
+				self.branch_info[key+'image'] = image_indices
+				self.branch_info[key+'weights'] = math.log(float(self.num_files)/ len(image_indices))
 
-	def predict(self):
-		pass
+
+
+	def feature_predict(kmeans_tree,feature,layer = 0, cluster_inf = '0'):
+		distance = []
+		feature = feature/ np.linalg.norm(feature)
+		end = False
+		for i in range(kmeans_tree.branch_factor):
+			if str(num_layer)+';'+str(cluster_inf)+str(i) in kmeans_tree.tree_info.keys:
+				distance.append(np.dot(np.transpose( kmeans_tree.tree_info[str(num_layer)+';'+str(cluster_inf)+str(i)]),feature))
+			else:
+				distance.append(np.dot(np.transpose( kmeans_tree.tree_info[str(num_layer)+';'+str(cluster_inf)+str(i)+'end']),feature))
+				end = True
+		if end:
+			indices =  kmeans_tree.branch_info[str(num_layer)+';'+str(cluster_inf)+str(distance.index(max(distance)))+'indices+'+'end'+'image']
+			weight =  kmeans_tree.branch_info[str(num_layer)+';'+str(cluster_inf)+str(distance.index(max(distance)))+'indices+'+'end'+'weights']
+			return indices,weight
+
+		return predict(kmeans_tree, feature, layer+1, cluster_inf+str(distance.index(max(distance))))
+
+	def query(kmeans_tree,feature_matrix):
+		scores = np.zeros(kmeans_tree.num_files)
+		for feature in feature_matrix:
+			indices, weight = feature_predict(feature)
+			for index in indices:
+				scores[index]+=weight
+		return scores
+

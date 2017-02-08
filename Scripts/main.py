@@ -6,7 +6,7 @@ from pkl_utils import save_obj, load_obj
 
 # Argument 1: Train (0), Validation(1) or Test(2)
 
-def process_scores():
+# def process_scores():
 
 if int(sys.argv[1])==0:
 	'''
@@ -22,8 +22,8 @@ if int(sys.argv[1])==0:
 
 	print "Saving Vocabulary Tree"
 	save_obj(vocab_tree,'../Models/vocab_tree_1.pkl')
-
-elif sys.argv[2]==1:
+	
+elif int(sys.argv[1])==1:
 	'''
 	Validation mode
 	Argument 2: Location of the Vocabulary Tree (.pkl) constructed

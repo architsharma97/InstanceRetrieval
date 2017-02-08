@@ -24,7 +24,7 @@ if int(sys.argv[1])==0:
 	vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	print "Saving Vocabulary Tree"
-	np.savez_compressed('../Models/vocab_tree_1.npy', vocab_tree)
+	np.save('../Models/vocab_tree_1.npy', vocab_tree)
 	
 elif int(sys.argv[1])==1:
 	'''

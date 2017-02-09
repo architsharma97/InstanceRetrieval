@@ -3,6 +3,7 @@ import time
 
 import numpy as np
 import cv2
+from sklearn.externals import joblib
 
 from utils import *
 from pkl_utils import *
@@ -23,7 +24,7 @@ print ("Loading vgg16")
 model=vgg16()
 
 print ("Loading Vocabulary Tree")
-vocab_tree=load_obj(sys.argv[3])
+vocab_tree=joblib.load(sys.argv[3])
 
 print ("Loading PCA Layer")
 pca=load_obj(sys.argv[2])

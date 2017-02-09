@@ -5,7 +5,7 @@ from sklearn.externals import joblib
 
 import hierarchical_kmeans as hkm
 from pkl_utils import *
-import deepdish as dd
+# import deepdish as dd
 # Argument 1: Train (0), Validation(1) or Test(2)
 
 def process_scores(score):
@@ -26,10 +26,10 @@ if int(sys.argv[1])==0:
 	vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	print ("Saving Vocabulary Tree")
-	try:
-		joblib.dump(vocab_tree, '../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
-	except:
-		dd.io.save('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.h5',[vocab_tree.inv_file,vocab_tree.num_files,vocab_tree.tree_info,vocab_tree.branch_info,vocab_tree.branch_factor])
+	# try:
+	joblib.dump(vocab_tree, '../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
+	# except:
+		# dd.io.save('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.h5',[vocab_tree.inv_file,vocab_tree.num_files,vocab_tree.tree_info,vocab_tree.branch_info,vocab_tree.branch_factor])
 
 elif int(sys.argv[1])==1:
 	'''

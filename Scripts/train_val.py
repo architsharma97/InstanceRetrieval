@@ -26,7 +26,7 @@ if int(sys.argv[1])==0:
 	vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	print ("Saving Vocabulary Tree")
-	joblib.dump(vocab_tree, '../Models/vocab_tree_1.pkl')
+	joblib.dump(vocab_tree, '../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
 	
 elif int(sys.argv[1])==1:
 	'''

@@ -29,7 +29,7 @@ if int(sys.argv[1])==0:
 	print ("Saving Vocabulary Tree")
 	# try:
 	if not os.path.exists('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'):
-		os.path.mkdirs('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/')
+		os.mkdir('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/')
 	DIR='../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'
 	joblib.dump(vocab_tree, DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
 	# except:

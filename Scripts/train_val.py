@@ -1,4 +1,5 @@
 import sys
+import os
 
 import numpy as np
 from sklearn.externals import joblib
@@ -27,7 +28,10 @@ if int(sys.argv[1])==0:
 
 	print ("Saving Vocabulary Tree")
 	# try:
-	joblib.dump(vocab_tree, '../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
+	if not os.path.exists('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'):
+		os.path.mkdirs('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/')
+	DIR='../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'
+	joblib.dump(vocab_tree, DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
 	# except:
 		# dd.io.save('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.h5',[vocab_tree.inv_file,vocab_tree.num_files,vocab_tree.tree_info,vocab_tree.branch_info,vocab_tree.branch_factor])
 

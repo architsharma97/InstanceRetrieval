@@ -54,7 +54,7 @@ feature_matrix=model.predict(processed_regions)
 feature_matrix=pca.transform(feature_matrix)
 
 print ("Getting the rankings")
-score=h_kmeans.query(vocab_tree, feature_matrix)
+score=heirarchical_kmeans.h_kmeans.query(vocab_tree, feature_matrix)
 rankings=sorted(range(len(score)), key=lambda k: score[k])
 
 train_file_names=open(sys.argv[4],'r').read().splitlines()

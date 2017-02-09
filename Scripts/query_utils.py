@@ -12,7 +12,7 @@ def feature_predict(kmeans_tree, feature, num_layer = 1, cluster_inf = '0'):
 		for i in range(kmeans_tree.branch_factor):
 			if (str(num_layer)+';'+str(cluster_inf)+str(i)) in kmeans_tree.tree_info.keys():
 				distance.append(np.dot(np.transpose( kmeans_tree.tree_info[str(num_layer)+';'+str(cluster_inf)+str(i)]),feature))
-			else:
+			elif str(num_layer)+';'+str(cluster_inf)+str(i)+'end' in kmeans_tree.tree_info.keys():
 				print("else "+str(num_layer)+';'+str(cluster_inf)+str(i))
 				distance.append(np.dot(np.transpose( kmeans_tree.tree_info[str(num_layer)+';'+str(cluster_inf)+str(i)+'end']),feature))
 				end = True

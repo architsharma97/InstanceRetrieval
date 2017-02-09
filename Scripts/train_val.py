@@ -1,8 +1,11 @@
 import sys
 
 import numpy as np
+from sklearn.externals import joblib
+
 import hierarchical_kmeans as hkm
 from pkl_utils import *
+
 # Argument 1: Train (0), Validation(1) or Test(2)
 
 def process_scores(score):
@@ -23,7 +26,7 @@ if int(sys.argv[1])==0:
 	vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	print ("Saving Vocabulary Tree")
-	save_obj(vocab_tree, '../Models/vocab_tree_1.pkl')
+	joblib.dump(vocab_tree, '../Models/vocab_tree_1.pkl')
 	
 elif int(sys.argv[1])==1:
 	'''

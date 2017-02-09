@@ -77,7 +77,7 @@ class h_kmeans:
 			for i in range(num_cluster):
 				indices = np.array([j for j, x in enumerate(labels) if x == i])
 				
-				new_cluster = data_cluster[indices,:]
+				new_cluster = data_cluster[indices.astype(int),:]
 
 				if new_cluster.shape[0]<num_cluster or num_layer>max_layer:
 					norm = kmeans.cluster_centers_[i,:] / np.linalg.norm(kmeans.cluster_centers_[i,:])

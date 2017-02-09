@@ -99,7 +99,10 @@ class h_kmeans:
 				image_indices = [self.node_file[x] for x in node_indices]
 				image_indices = list(set(image_indices))
 				self.branch_info[key+'image'] = image_indices
-				self.branch_info[key+'weights'] = math.log(float(self.num_files)/len(image_indices))
+				try :
+					self.branch_info[key+'weights'] = math.log(float(self.num_files)/len(image_indices))
+				except:
+					self.branch_info[key+'weights'] = 0.0
 
 	def query(kmeans_tree, feature_matrix):
 		scores = np.zeros(kmeans_tree.num_files)

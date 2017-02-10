@@ -39,13 +39,13 @@ if int(sys.argv[1])==0:
 	# vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	vocab_tree = generateVocabTree(descriptors,sys.argv[3],sys.argv[2])
-    print "VocabTree generated"
-    computeNDArray(tree)
-    print "ND Array computed"
-    computeIFIndex(tree)
-    print "IDF computed"
-    computeTopImages(tree)
-    print "Top Images computed"
+	print "VocabTree generated"
+	computeNDArray(tree)
+	print "ND Array computed"
+	computeIFIndex(tree)
+	print "IDF computed"
+	computeTopImages(tree)
+	print "Top Images computed"
 
 	print ("Saving Vocabulary Tree")
 	# try:

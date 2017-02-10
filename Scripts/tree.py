@@ -38,7 +38,7 @@ def generateVocabTree(descriptors, level, num_clusters, L):
 		for d in descriptors:
 			C[clusters.predict(d[1])[0]].append(d)
 		for i in range (0, num_clusters):
-			vtree.children.append(generateVocabTree(C[i], level-1))
+			vtree.children.append(generateVocabTree(C[i], level-1,num_clusters,L))
 		for i in range (0, num_clusters):
 			vtree.children[i].center = clusterCenters[i]
 	except Exception, e:

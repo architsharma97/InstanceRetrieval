@@ -48,9 +48,9 @@ def generateVocabTree(descriptors, level, num_clusters, L):
 		print "VTree complete in " + str(time.time() -t) + " s"
 	return vtree
 
-def computeIFIndex(tree):
+def computeIFIndex(tree,ND):
 	t = time.time()
-	global ND
+	
 	if len(tree.children) != 0:
 		for child in tree.children:
 			computeIFIndex(child)
@@ -63,9 +63,9 @@ def computeIFIndex(tree):
 	if tree.center == None:
 		print "IF Index complete in " + str(time.time() -t) + " s"
 
-def computeNDArray(tree):
+def computeNDArray(tree, ND):
 	t = time.time()
-	global ND
+	
 	if len(tree.children) != 0:
 		for child in tree.children:
 			computeNDArray(child)
@@ -76,10 +76,11 @@ def computeNDArray(tree):
 			ND[img] += 1
 	if tree.center == None:
 		print "ND Array complete in " + str(time.time() -t) + " s"
+	return ND
 
-def computeTopImages(tree):
+def computeTopImages(tree,ND):
 	t = time.time()
-	global ND
+
 	if len(tree.children) != 0:
 		for child in tree.children:
 			computeTopImages(child)

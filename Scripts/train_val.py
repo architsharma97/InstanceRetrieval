@@ -25,8 +25,8 @@ if int(sys.argv[1])==0:
 	data=np.load("../Models/VW_Train/visual_words_reduced.npy")
 	descriptors = []
 	with open('../Models/VW_Train/regions_list.txt','r') as f:
-			inv_file = f.read().split('\n')[:-1]
-			num_files = len(inv_file)
+		inv_file = f.read().split('\n')[:-1]
+		num_files = len(inv_file)
 	
 	num_image = 0
 	for each in inv_file:
@@ -40,11 +40,13 @@ if int(sys.argv[1])==0:
 
 	vocab_tree = generateVocabTree(descriptors,sys.argv[3],sys.argv[2],sys.argv[3])
 	print "VocabTree generated"
-	computeNDArray(vocab_tree)
+	N = len(num_files)
+	ND = [0] * N
+	ND = computeNDArray(vocab_tree, ND)
 	print "ND Array computed"
-	computeIFIndex(vocab_tree)
+	computeIFIndex(vocab_tree, ND)
 	print "IDF computed"
-	computeTopImages(vocab_tree)
+	computeTopImages(vocab_tree, ND)
 	print "Top Images computed"
 
 	print ("Saving Vocabulary Tree")

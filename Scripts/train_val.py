@@ -38,7 +38,7 @@ if int(sys.argv[1])==0:
 	# vocab_tree=hkm.h_kmeans(data, '../Models/VW_Train/regions_list.txt')
 	# vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
-	vocab_tree = generateVocabTree(descriptors,sys.argv[3],sys.argv[2],sys.argv[3])
+	vocab_tree = generateVocabTree(descriptors,int(sys.argv[3]),int(sys.argv[2]),int(sys.argv[3]))
 	print "VocabTree generated"
 	N = num_files
 	ND = [0] * N

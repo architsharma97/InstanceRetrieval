@@ -84,7 +84,7 @@ def computeTopImages(tree,ND):
 
 	if len(tree.children) != 0:
 		for child in tree.children:
-			computeTopImages(child)
+			computeTopImages(child,ND)
 	else:
 		temp = [(tree.scores[i], tree.images[i]) for i in range (0, len(tree.images))]
 		temp.sort(reverse=True)

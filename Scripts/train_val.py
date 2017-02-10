@@ -7,6 +7,7 @@ from sklearn.externals import joblib
 import hierarchical_kmeans as hkm
 from pkl_utils import *
 from tree import *
+import query_utils
 
 # import deepdish as dd
 # Argument 1: Train (0), Validation(1) or Test(2)
@@ -74,13 +75,15 @@ elif int(sys.argv[1])==1:
 	validation_data=np.load('../Models/VW_Val/visual_words_reduced.npy')
 	print ("Loading Vocabulary Tree")
 	vocab_tree=load_obj(sys.argv[2])
+	num_clusters = int(sys.argv[2].split('/')[-1].split('_')[2])
 	
 	regions_list=[int(num) for num in open('../Models/VW_Val/regions_list.txt','r').read().splitlines()]
 	output=open(sys.argv[3],'w')
 
 	matrix_idx=0
 	for i in range(len(regions_list)):
-		rankings=vocab_tree.bestMatch(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:],num_clusters)
+		print ("Retrieving rankings for images")
+		rankings=query_utils.bestMatch(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:], num_clusters)
 		
 		for file_idx in rankings[:len(rankings)-1]:
 			output.write(str(file_idx[1])+',')

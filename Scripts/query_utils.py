@@ -3,8 +3,23 @@ from sklearn.cluster import KMeans
 import math
 from collections import Counter
 
+from tree import *
 
 
+
+def bestMatches(des,VTree):
+    for d in des:
+        leaf = getLeaf(VTree, d)
+        for image in leaf.topImages:
+            imgId = image[1]
+            score = image[0]
+            if imgId in allVotedImages:
+                allVotedImages[imgId] += score
+            else:
+                allVotedImages[imgId] = score
+    votes = [(v, k) for k, v in allVotedImages.iteritems()]
+    votes.sort(reverse=True)
+return votes
 
 def getLeaf(tree, descriptor):
     if len(tree.children) != 0:
@@ -18,6 +33,7 @@ def getLeaf(tree, descriptor):
         return getLeaf(tree.children[index], descriptor)
     else:
         return tree
+
 def distance(v1, v2):
     sum = 0
     for i in range(0, len(v1)):

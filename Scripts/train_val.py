@@ -31,7 +31,7 @@ if int(sys.argv[1])==0:
 	num_image = 0
 	for each in inv_file:
 		for i in range(int(each)):
-			descriptors.append([num_image,data[i,:].reshape(1,-1)])
+			descriptors.append([num_image,data[i,:]])
 		num_image+=1
 	
 	print ("Creating Vocabulary Tree")

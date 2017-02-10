@@ -80,6 +80,6 @@ elif int(sys.argv[1])==1:
 		rankings=vocab_tree.bestMatch(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:],num_clusters)
 		
 		for file_idx in rankings[:len(rankings)-1]:
-			output.write(str(file_idx)+',')
-		output.write(str(rankings[len(rankings)-1])+'\n')
+			output.write(str(file_idx[1])+',')
+		output.write(str(rankings[len(rankings)-1][1])+'\n')
 		matrix_idx+=regions_list[i]

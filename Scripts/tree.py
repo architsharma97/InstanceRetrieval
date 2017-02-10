@@ -54,7 +54,7 @@ def computeIFIndex(tree,ND):
 	
 	if len(tree.children) != 0:
 		for child in tree.children:
-			computeIFIndex(child)
+			computeIFIndex(child,ND)
 	else:
 		Ni = len(tree.images)
 		for img in tree.images:

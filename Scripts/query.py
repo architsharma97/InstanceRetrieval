@@ -55,8 +55,8 @@ feature_matrix=model.predict(processed_regions)
 feature_matrix=pca.transform(feature_matrix)
 
 print ("Getting the rankings")
-score=query_utils.bestMatches(vocab_tree, feature_matrix)
-rankings=sorted(range(len(score)), key=lambda k: score[k])
+score=query_utils.bestMatches(vocab_tree, feature_matrix,1)
+rankings=sorted(range(len(score)), key=lambda k: score[k], reverse=True)
 
 train_file_names=open(sys.argv[4],'r').read().splitlines()
 

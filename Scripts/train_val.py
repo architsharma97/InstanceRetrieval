@@ -6,6 +6,8 @@ from sklearn.externals import joblib
 
 import hierarchical_kmeans as hkm
 from pkl_utils import *
+from tree import *
+
 # import deepdish as dd
 # Argument 1: Train (0), Validation(1) or Test(2)
 
@@ -21,10 +23,29 @@ if int(sys.argv[1])==0:
 	'''
 	print ("Loading Data")
 	data=np.load("../Models/VW_Train/visual_words_reduced.npy")
+	descriptors = []
+	with open('../Models/VW_Train/regions_list.txt','r') as f:
+			inv_file = f.read().split('\n')[:-1]
+			num_files = len(inv_file)
+	
+	num_image = 0
+	for each in inv_file:
+		for i in range(int(each)):
+			descriptors.append([num_image,data[i,:]])
+		num_image+=1
 	
 	print ("Creating Vocabulary Tree")
-	vocab_tree=hkm.h_kmeans(data, '../Models/VW_Train/regions_list.txt')
-	vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
+	# vocab_tree=hkm.h_kmeans(data, '../Models/VW_Train/regions_list.txt')
+	# vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
+
+	vocab_tree = generateVocabTree(descriptors,sys.argv[3],sys.argv[2])
+    print "VocabTree generated"
+    computeNDArray(tree)
+    print "ND Array computed"
+    computeIFIndex(tree)
+    print "IDF computed"
+    computeTopImages(tree)
+    print "Top Images computed"
 
 	print ("Saving Vocabulary Tree")
 	# try:

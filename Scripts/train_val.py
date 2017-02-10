@@ -83,7 +83,7 @@ elif int(sys.argv[1])==1:
 	matrix_idx=0
 	for i in range(len(regions_list)):
 		print ("Retrieving rankings for images")
-		rankings=query_utils.bestMatch(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:], num_clusters)
+		rankings=query_utils.bestMatches(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:], num_clusters)
 		
 		for file_idx in rankings[:len(rankings)-1]:
 			output.write(str(file_idx[1])+',')

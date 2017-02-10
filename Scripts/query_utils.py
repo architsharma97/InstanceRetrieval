@@ -8,6 +8,7 @@ from tree import *
 
 
 def bestMatches(VTree,des,num_cluster):
+    allVotedImages = {}
     for d in des:
         leaf = getLeaf(VTree, d,num_cluster)
         for image in leaf.topImages:

@@ -88,6 +88,6 @@ def computeTopImages(tree,ND):
 	else:
 		temp = [(tree.scores[i], tree.images[i]) for i in range (0, len(tree.images))]
 		temp.sort(reverse=True)
-		tree.topImages = temp[:383]
+		tree.topImages = temp
 	if tree.center == None:
 		print "Top Images complete in " + str(time.time() -t) + " s"

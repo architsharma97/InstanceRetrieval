@@ -54,7 +54,8 @@ if int(sys.argv[1])==0:
 	if not os.path.exists('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'):
 		os.mkdir('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/')
 	DIR='../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'
-	joblib.dump(vocab_tree, DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
+	save_obj(vocab_tree,DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
+	# joblib.dump(vocab_tree, DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
 	# except:
 		# dd.io.save('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.h5',[vocab_tree.inv_file,vocab_tree.num_files,vocab_tree.tree_info,vocab_tree.branch_info,vocab_tree.branch_factor])
 

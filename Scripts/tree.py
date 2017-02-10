@@ -23,6 +23,7 @@ class VocabTree:
 def generateVocabTree(descriptors, level, num_clusters, L):
 	t = time.time()
 	vtree = VocabTree()
+	print(str(t))
 	if level == 0:
 		vtree.descriptors = descriptors
 		return vtree

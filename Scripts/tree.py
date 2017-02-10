@@ -69,7 +69,7 @@ def computeNDArray(tree, ND):
 	
 	if len(tree.children) != 0:
 		for child in tree.children:
-			computeNDArray(child)
+			computeNDArray(child, ND)
 	else:
 		tree.imageIndices  = [d[0] for d in tree.descriptors]
 		tree.images      = list(set(tree.imageIndices))

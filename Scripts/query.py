@@ -58,7 +58,8 @@ for address in address_file:
 
 	print ("Getting the rankings")
 	rankings=query_utils.bestMatches(vocab_tree, feature_matrix, num_clusters)
-
+	print rankings[:10]
+	
 	train_file_names=open(sys.argv[4],'r').read().splitlines()
 
 	file_rankings=[train_file_names[rank[1]] for rank in rankings]

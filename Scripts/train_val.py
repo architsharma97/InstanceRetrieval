@@ -39,22 +39,27 @@ if int(sys.argv[1])==0:
 	# vocab_tree.cluster(int(sys.argv[2]), int(sys.argv[3]))
 
 	vocab_tree = generateVocabTree(descriptors,int(sys.argv[3]),int(sys.argv[2]),int(sys.argv[3]))
-	print "VocabTree generated"
+	print ("Vocabulary Tree Generated")
+	
 	N = num_files
 	ND = [0] * N
 	ND = computeNDArray(vocab_tree, ND)
-	print "ND Array computed"
+	print ("ND Array computed")
+	
 	computeIFIndex(vocab_tree, ND)
-	print "IDF computed"
+	print ("IDF computed")
+	
 	computeTopImages(vocab_tree, ND)
-	print "Top Images computed"
+	print ("Top Images computed")
 
 	print ("Saving Vocabulary Tree")
 	# try:
 	if not os.path.exists('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'):
 		os.mkdir('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/')
 	DIR='../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'/'
+	
 	save_obj(vocab_tree,DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
+	
 	# joblib.dump(vocab_tree, DIR+'vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.pkl')
 	# except:
 		# dd.io.save('../Models/vocab_tree_'+sys.argv[2]+'_'+sys.argv[3]+'.h5',[vocab_tree.inv_file,vocab_tree.num_files,vocab_tree.tree_info,vocab_tree.branch_info,vocab_tree.branch_factor])

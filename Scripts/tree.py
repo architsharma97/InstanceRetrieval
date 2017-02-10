@@ -20,7 +20,7 @@ class VocabTree:
 		self.imageIndices = []
 		self.topImages = []
 
-def generateVocabTree(descriptors, level, num_clusters):
+def generateVocabTree(descriptors, level, num_clusters, L):
 	t = time.time()
 	vtree = VocabTree()
 	if level == 0:

@@ -40,7 +40,7 @@ if int(sys.argv[1])==0:
 
 	vocab_tree = generateVocabTree(descriptors,sys.argv[3],sys.argv[2],sys.argv[3])
 	print "VocabTree generated"
-	N = len(num_files)
+	N = num_files
 	ND = [0] * N
 	ND = computeNDArray(vocab_tree, ND)
 	print "ND Array computed"

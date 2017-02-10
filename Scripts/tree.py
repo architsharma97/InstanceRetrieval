@@ -59,7 +59,7 @@ def computeIFIndex(tree,ND):
 		for img in tree.images:
 			ndi = tree.imageIndices.count(img)
 			nd  = ND[img]
-			tree.scores.append(float(ndi)/nd*math.log(N/Ni))
+			tree.scores.append(float(ndi)/nd*math.log(len(ND)/Ni))
 	if tree.center == None:
 		print "IF Index complete in " + str(time.time() -t) + " s"
 

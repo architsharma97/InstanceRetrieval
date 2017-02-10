@@ -40,11 +40,11 @@ if int(sys.argv[1])==0:
 
 	vocab_tree = generateVocabTree(descriptors,sys.argv[3],sys.argv[2],sys.argv[3])
 	print "VocabTree generated"
-	computeNDArray(tree)
+	computeNDArray(vocab_tree)
 	print "ND Array computed"
-	computeIFIndex(tree)
+	computeIFIndex(vocab_tree)
 	print "IDF computed"
-	computeTopImages(tree)
+	computeTopImages(vocab_tree)
 	print "Top Images computed"
 
 	print ("Saving Vocabulary Tree")

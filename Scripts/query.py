@@ -24,7 +24,8 @@ print ("Loading vgg16")
 model=vgg16()
 
 print ("Loading Vocabulary Tree")
-vocab_tree = load_obj(sys.argv[3])
+vocab_tree   = load_obj(sys.argv[3])
+num_clusters = int(sys.argv[3].split('/')[-1].split('_')[2])
 
 print ("Loading PCA Layer")
 pca=load_obj(sys.argv[2])
@@ -56,7 +57,7 @@ for address in address_file:
 	feature_matrix=pca.transform(feature_matrix)
 
 	print ("Getting the rankings")
-	rankings=query_utils.bestMatches(vocab_tree, feature_matrix,1)
+	rankings=query_utils.bestMatches(vocab_tree, feature_matrix, num_clusters)
 
 	train_file_names=open(sys.argv[4],'r').read().splitlines()
 

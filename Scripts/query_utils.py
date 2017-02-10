@@ -7,9 +7,9 @@ from tree import *
 
 
 
-def bestMatches(VTree,des):
+def bestMatches(VTree,des,num_cluster):
     for d in des:
-        leaf = getLeaf(VTree, d)
+        leaf = getLeaf(VTree, d,num_cluster)
         for image in leaf.topImages:
             imgId = image[1]
             score = image[0]
@@ -21,16 +21,16 @@ def bestMatches(VTree,des):
     votes.sort(reverse=True)
     return votes
 
-def getLeaf(tree, descriptor):
+def getLeaf(tree, descriptor,num_cluster):
     if len(tree.children) != 0:
         index = 0
         minDist = sys.maxint
-        for i in range(0, K):
+        for i in range(0, num_cluster):
             d = distance(tree.children[i].center, descriptor)
             if d < minDist:
                 minDist = d
                 index = i
-        return getLeaf(tree.children[index], descriptor)
+        return getLeaf(tree.children[index], descriptor,num_cluster)
     else:
         return tree
 

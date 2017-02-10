@@ -70,8 +70,11 @@ elif int(sys.argv[1])==1:
 	Argument 2: Location of the Vocabulary Tree (.pkl) constructed
 	Argument 3: Output file for Validation
 	'''
+	print ("Loading Data")
 	validation_data=np.load('../Models/VW_Val/visual_words_reduced.npy')
+	print ("Loading Vocabulary Tree")
 	vocab_tree=load_obj(sys.argv[2])
+	
 	regions_list=[int(num) for num in open('../Models/VW_Val/regions_list.txt','r').read().splitlines()]
 	output=open(sys.argv[3],'w')
 

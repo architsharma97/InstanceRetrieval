@@ -11,9 +11,9 @@ from tree import *
 # import deepdish as dd
 # Argument 1: Train (0), Validation(1) or Test(2)
 
-def process_scores(score):
-	rankings=sorted(range(len(score)), key=lambda k: score[k])
-	return rankings
+# def process_scores(score):
+#	rankings=sorted(range(len(score)), key=lambda k: score[k])
+#	return rankings
 
 if int(sys.argv[1])==0:
 	'''
@@ -77,8 +77,8 @@ elif int(sys.argv[1])==1:
 
 	matrix_idx=0
 	for i in range(len(regions_list)):
-		score=vocab_tree.query(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:])
-		rankings=process_scores(score)
+		rankings=vocab_tree.bestMatch(vocab_tree, validation_data[matrix_idx:matrix_idx+regions_list[i],:],num_clusters)
+		
 		for file_idx in rankings[:len(rankings)-1]:
 			output.write(str(file_idx)+',')
 		output.write(str(rankings[len(rankings)-1])+'\n')

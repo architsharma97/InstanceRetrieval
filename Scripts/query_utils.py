@@ -7,7 +7,7 @@ from tree import *
 
 
 
-def bestMatches(des,VTree):
+def bestMatches(VTree,des):
     for d in des:
         leaf = getLeaf(VTree, d)
         for image in leaf.topImages:
@@ -19,7 +19,7 @@ def bestMatches(des,VTree):
                 allVotedImages[imgId] = score
     votes = [(v, k) for k, v in allVotedImages.iteritems()]
     votes.sort(reverse=True)
-return votes
+    return votes
 
 def getLeaf(tree, descriptor):
     if len(tree.children) != 0:
@@ -39,7 +39,7 @@ def distance(v1, v2):
     for i in range(0, len(v1)):
         sum += ((v1[i] - v2[i]) * (v1[i] - v2[i])) # L2 : good
         # sum += abs(v1[i] - v2[i]) # L1 : bad
-return sum
+    return sum
 
 
 def feature_predict(kmeans_tree, feature, num_layer = 1, cluster_inf = '0'):

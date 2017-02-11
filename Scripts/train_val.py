@@ -25,15 +25,17 @@ if int(sys.argv[1])==0:
 	print ("Loading Data")
 	data=np.load("../Models/VW_Train/visual_words_reduced.npy")
 	descriptors = []
-	with open('../Models/VW_Train/regions_list.txt','r') as f:
-		inv_file = f.read().split('\n')[:-1]
-		num_files = len(inv_file)
+
+	inv_file=[int(num) for num in open('../Models/VW_Train/regions_list.txt','r').read().splitlines()] 
+	num_files = len(inv_file)
 	
 	num_image = 0
+	feature_idx=0
 	for each in inv_file:
 		for i in range(int(each)):
-			descriptors.append([num_image,data[i,:]])
-		num_image+=1
+			descriptors.append([num_image,data[feature_idx,:]])
+			feature_idx+=1
+		num_image+=1	
 	
 	print ("Creating Vocabulary Tree")
 	# vocab_tree=hkm.h_kmeans(data, '../Models/VW_Train/regions_list.txt')

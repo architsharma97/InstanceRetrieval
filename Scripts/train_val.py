@@ -4,7 +4,6 @@ import os
 import numpy as np
 from sklearn.externals import joblib
 
-import hierarchical_kmeans as hkm
 from pkl_utils import *
 from tree import *
 import query_utils

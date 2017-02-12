@@ -7,7 +7,6 @@ from sklearn.externals import joblib
 
 from utils import *
 from pkl_utils import *
-from hierarchical_kmeans import *
 import query_utils
 
 from selectivesearch import *

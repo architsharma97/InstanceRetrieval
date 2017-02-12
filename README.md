@@ -6,9 +6,10 @@ Pass the proposed regions through VGG16 and construct a feature space. Pre-train
 Construct a _Hierarchical K-Means_ based _Vocabulary Tree_, along the lines of this [paper](http://www-inst.eecs.berkeley.edu/~cs294-6/fa06/papers/nister_stewenius_cvpr2006.pdf).
 
 To test a new image, create text file containing the addresses of the image relative to the 'Scripts/' folder.
-Assuming the models have been saved in the 'Models/' folder, run the following command from the Scripts folder 
+Assuming the models have been saved in the 'Models/' folder, run the following command from the Scripts folder for the image 'Test/test.jpg', which is accompanied by 'Test/address.txt'
 
 ```
-python query.py /path/to/address/file.txt ../Models/PCAlayer_128.pkl ../Models/vocab_tree.pkl ../train_list.txt
+python query.py Test/address.txt ../Models/PCAlayer_128.pkl ../Models/vocab_tree_20_5/vocab_tree_20_5.pkl ../train_list.txt
 ```
+This produces 'Test/test.txt' which contains matched images in the training set.
 The PCA Matrix and Vocabulary Tree models can be chosen from the Models folder.
